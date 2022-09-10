@@ -1,0 +1,28 @@
+
+void main() {
+    print(ValidateOpeners('{ [ ] ( ) }'));
+}
+
+bool? ValidateOpeners(String text){
+  List<String> list = [];
+
+  var pairsMap = {'(': ')', '[': ']', '{': '}'};
+  
+  var tab = text.split('');
+  for( int i = 0; i <tab.length; i++) {
+    if( pairsMap.containsKey(tab[i]) )
+      {
+        list.add(tab[i]);
+      }
+    else if ( pairsMap.containsValue(tab[i]) ) {
+      if ( list.isEmpty ) { return false; }
+      var lastOpener = list.removeLast();
+
+      if ( pairsMap[lastOpener] != tab[i] ) {
+        return false;
+      }
+    }
+  }
+  return list.isEmpty;
+
+}
